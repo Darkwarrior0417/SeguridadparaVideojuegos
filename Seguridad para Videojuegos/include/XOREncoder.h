@@ -58,8 +58,8 @@ public:
 			}
 
 			if (isValidText(result)) {
-				std::cout << "=============================\n";
-				std::cout << "Clave 1 byte  : '" << static_cast<char>(clave)
+				std::cout << "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
+				std::cout << "Clave 1   : '" << static_cast<char>(clave)
 					<< "' (0x" << std::hex << std::setw(2) << std::setfill('0') << clave << ")\n";
 				std::cout << "Texto posible : " << result << "\n";
 			}
@@ -78,8 +78,8 @@ public:
 				}
 
 				if (isValidText(result)) {
-					std::cout << "=============================\n";
-					std::cout << "Clave 2 bytes : '" << static_cast<char>(b1) << static_cast<char>(b2)
+					std::cout << "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n";
+					std::cout << "Clave 2  : '" << static_cast<char>(b1) << static_cast<char>(b2)
 						<< "' (0x" << std::hex << std::setw(2) << std::setfill('0') << b1
 						<< " 0x" << std::setw(2) << std::setfill('0') << b2 << ")\n";
 					std::cout << "Texto posible : " << result << "\n";
