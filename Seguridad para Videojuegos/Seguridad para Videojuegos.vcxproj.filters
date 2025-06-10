@@ -35,8 +35,5 @@
     <ClCompile Include="Main.cpp">
       <Filter>Archivos de recursos</Filter>
     </ClCompile>
-    <ClCompile Include="CaesarEncryption.cpp">
-      <Filter>Archivos de recursos</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
