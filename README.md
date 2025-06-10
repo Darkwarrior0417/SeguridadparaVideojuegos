@@ -18,7 +18,7 @@ Se implementó la codificación bit a bit entre el mensaje y una clave repetida.
 
 Se añadió la conversión de cadenas hexadecimales a bytes.
 
-Se incluyeron técnicas de fuerza bruta de 1 y 2 bytes, así como un ataque por diccionario usando palabras como "clave", "admin", "friki", "goofyahh", entre otras.
+Se incluyeron técnicas de fuerza bruta de 1 y 2 bytes, así como un ataque por diccionario usando palabras como "clave", "admin", "123", entre otras.
 
 🔒 3. Cifrado DES
 Se trabajó con bloques fijos de 64 bits:
