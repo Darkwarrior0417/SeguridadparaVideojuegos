@@ -16,9 +16,10 @@ using namespace std;
  *
  * @return int Código de salida del programa (0 si todo fue exitoso).
  */
+
 int
 main() {
-    // std::bitset<64> plaintext("0001001000110100010101100111100010011010101111001101111011110001");
+
     std::bitset<64> key("0001001100110100010101110111100110011011101111001101111111110001");
 
     string phrase = "$Dessmind_goat!";

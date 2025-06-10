@@ -17,7 +17,8 @@ public:
      * @param key Clave para el cifrado.
      * @return Texto cifrado.
      */
-    std::string encode(const std::string& input, const std::string& key) {
+    std::string 
+    encode(const std::string& input, const std::string& key) {
         std::string output = input;
         for (int i = 0; i < input.size(); i++) {
             output[i] = input[i] ^ key[i % key.size()];
@@ -30,7 +31,8 @@ public:
      * @param input Cadena hexadecimal.
      * @return Vector de bytes.
      */
-    std::vector<unsigned char> HexToBytes(const std::string& input) {
+    std::vector<unsigned char> 
+    HexToBytes(const std::string& input) {
         std::vector<unsigned char> bytes;
         std::istringstream iss(input);
         std::string hexValue;
@@ -74,7 +76,8 @@ public:
      * @brief Fuerza bruta usando una sola clave XOR de 1 byte.
      * @param cifrado Texto cifrado en formato de bytes.
      */
-    void bruteForce_1Byte(const std::vector<unsigned char>& cifrado) {
+    void 
+    bruteForce_1Byte(const std::vector<unsigned char>& cifrado) {
         for (int clave = 0; clave < 256; ++clave) {
             std::string result;
 

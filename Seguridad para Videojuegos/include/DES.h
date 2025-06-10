@@ -24,7 +24,8 @@ public:
     /**
      * @brief Genera 16 subclaves a partir de la clave principal.
      */
-    void generateSubkeys() {
+    void 
+    generateSubkeys() {
         for (int i = 0; i < 16; i++) {
             std::bitset<48> subkey((key.to_ullong() >> i) & 0xFFFFFFFFFFFF);
             subkeys.push_back(subkey);
@@ -36,7 +37,8 @@ public:
     * @param input Entrada de 64 bits.
     * @return Resultado permutado.
     */
-    std::bitset<64> iPermutation(const std::bitset<64>& input) {
+    std::bitset<64> 
+    iPermutation(const std::bitset<64>& input) {
         std::bitset<64> output;
         for (int i = 0; i < 64; i++) {
             output[i] = input[i];
@@ -49,7 +51,8 @@ public:
      * @param halfBlock Bloque de 32 bits a expandir.
      * @return Bloque expandido de 48 bits.
      */
-    std::bitset<48> expand(const std::bitset<32>& halfBlock) {
+    std::bitset<48> 
+    expand(const std::bitset<32>& halfBlock) {
         std::bitset<48> output;
         for (int i = 0; i < 48; i++) {
             output[i] = halfBlock[32 - EXPANSION_TABLE[i]];
@@ -62,7 +65,8 @@ public:
     * @param input Entrada de 48 bits.
     * @return Salida de 32 bits después de sustitución.
     */
-    std::bitset<32> substitute(const std::bitset<48>& input) {
+    std::bitset<32> 
+    substitute(const std::bitset<48>& input) {
         std::bitset<32> output;
         for (int i = 0; i < 8; i++) {
             int row = (input[i * 6] << 1) | input[i * 6 + 5];
@@ -81,7 +85,8 @@ public:
      * @param input Bloque de entrada de 32 bits.
      * @return Bloque permutado de 32 bits.
      */
-    std::bitset<32> permutedP(const std::bitset<32>& input) {
+    std::bitset<32> 
+    permutedP(const std::bitset<32>& input) {
         std::bitset<32> output;
         for (int i = 0; i < 32; i++) {
             output[i] = input[32 - P_TABLE[i]];
@@ -95,7 +100,8 @@ public:
      * @param subkey Subclave para la ronda actual.
      * @return Resultado de la función Feistel.
      */
-    std::bitset<32> feistel(const std::bitset<32>& right, const std::bitset<48>& subkey) {
+    std::bitset<32> 
+    feistel(const std::bitset<32>& right, const std::bitset<48>& subkey) {
         auto expanded = expand(right);
         auto xored = expanded ^ subkey;
         auto substituted = substitute(xored);
@@ -108,7 +114,8 @@ public:
      * @param input Entrada de 64 bits.
      * @return Salida de 64 bits.
      */
-    std::bitset<64> fPermutation(const std::bitset<64>& input) {
+    std::bitset<64> 
+    fPermutation(const std::bitset<64>& input) {
         std::bitset<64> output;
         for (int i = 0; i < 64; i++) {
             output[i] = input[i];
@@ -121,7 +128,8 @@ public:
      * @param plaintext Texto plano en formato bitset de 64 bits.
      * @return Texto cifrado en formato bitset de 64 bits.
      */
-    std::bitset<64> encode(const std::bitset<64>& plaintext) {
+    std::bitset<64> 
+    encode(const std::bitset<64>& plaintext) {
         auto data = iPermutation(plaintext);
         std::bitset<32> left(data.to_ullong() >> 32);
         std::bitset<32> right(data.to_ullong());
@@ -139,7 +147,8 @@ public:
      * @param ciphertext Texto cifrado en formato bitset de 64 bits.
      * @return Texto plano en formato bitset de 64 bits.
      */
-    std::bitset<64> decode(const std::bitset<64>& ciphertext) {
+    std::bitset<64>
+    decode(const std::bitset<64>& ciphertext) {
         auto data = iPermutation(ciphertext);
         std::bitset<32> left(data.to_ullong() >> 32);
         std::bitset<32> right(data.to_ullong());
@@ -157,7 +166,8 @@ public:
      * @param block Bloque de texto de 8 caracteres.
      * @return Bitset de 64 bits equivalente.
      */
-    std::bitset<64> stringToBitset64(const std::string& block) {
+    std::bitset<64> 
+    stringToBitset64(const std::string& block) {
         uint64_t bits = 0;
         for (int i = 0; i < block.size(); i++) {
             bits |= (uint64_t)(unsigned char)block[i] << ((7 - i) * 8);
@@ -170,7 +180,8 @@ public:
      * @param bits Bitset de 64 bits.
      * @return Cadena de texto correspondiente.
      */
-    std::string bitset64ToString(const std::bitset<64>& bits) {
+    std::string 
+    bitset64ToString(const std::bitset<64>& bits) {
         std::string result(8, '\0');
         uint64_t val = bits.to_ullong();
         for (int i = 0; i < 8; i++) {

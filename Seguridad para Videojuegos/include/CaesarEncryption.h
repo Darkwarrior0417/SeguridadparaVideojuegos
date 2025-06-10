@@ -20,7 +20,8 @@ public:
    * @param desplazamiento Valor de desplazamiento en el alfabeto.
    * @return Texto cifrado.
    */
-    std::string EncryptionCaesar(const std::string& texto, int desplazamiento) {
+    std::string 
+    EncryptionCaesar(const std::string& texto, int desplazamiento) {
         std::string result = "";
 
         for (char c : texto) {
@@ -47,7 +48,8 @@ public:
      * @param desplazamiento Valor de desplazamiento usado en el cifrado original.
      * @return Texto descifrado.
      */
-    std::string DecodeCaesar(const std::string& texto, int desplazamiento) {
+    std::string 
+    DecodeCaesar(const std::string& texto, int desplazamiento) {
         return EncryptionCaesar(texto, 26 - (desplazamiento % 26));
     }
 

@@ -18,7 +18,8 @@ public:
 	* @param c Carácter a convertir.
 	* @return Cadena de 8 caracteres ('0' o '1') que representa el carácter en binario.
 	*/
-	std::string bitset(char c) {
+	std::string 
+	bitset(char c) {
 		std::string result(8, '0');
 		int val = static_cast<unsigned char>(c);
 		for (int i = 7; i >= 0; --i) {
@@ -34,7 +35,8 @@ public:
 	* @param input Cadena de texto ASCII a convertir.
 	* @return Cadena con los bits de cada carácter separados por espacio.
 	*/
-	std::string stringToBinary(const std::string& input) {
+	std::string 
+	stringToBinary(const std::string& input) {
 		std::ostringstream oss;
 		for (char c : input) {
 			oss << bitset(c) << " "; // Convert each character to its binary representation
@@ -67,7 +69,8 @@ public:
 	 * @param binaryInput Cadena binaria con bloques separados por espacio.
 	 * @return Cadena de texto ASCII reconstruida.
 	 */
-	std::string binaryToString(const std::string& binaryInput) {
+	std::string 
+	binaryToString(const std::string& binaryInput) {
 		std::istringstream iss(binaryInput);
 		std::string output;
 		std::string binary;
