@@ -1,17 +1,29 @@
 ﻿#pragma once
 #include "Prerequisites.h"
 
-class DES
+/**
+ * @class DES
+ * @brief Implementación simplificada del algoritmo de cifrado DES.
+ */
+class 
+DES
 {
 public:
     DES() = default;
 
+    /**
+     * @brief Constructor que recibe una llave para inicializar el algoritmo.
+     * @param key Clave de 64 bits en formato bitset.
+     */
     DES(const std::bitset<64>& key) : key(key) {
         generateSubkeys();
     }
 
     ~DES() = default;
 
+    /**
+     * @brief Genera 16 subclaves a partir de la clave principal.
+     */
     void generateSubkeys() {
         for (int i = 0; i < 16; i++) {
             std::bitset<48> subkey((key.to_ullong() >> i) & 0xFFFFFFFFFFFF);
@@ -19,6 +31,11 @@ public:
         }
     }
 
+    /**
+    * @brief Permutación inicial (simulada).
+    * @param input Entrada de 64 bits.
+    * @return Resultado permutado.
+    */
     std::bitset<64> iPermutation(const std::bitset<64>& input) {
         std::bitset<64> output;
         for (int i = 0; i < 64; i++) {
@@ -27,6 +44,11 @@ public:
         return output;
     }
 
+    /**
+     * @brief Expande un bloque de 32 bits a 48 bits usando la tabla de expansión.
+     * @param halfBlock Bloque de 32 bits a expandir.
+     * @return Bloque expandido de 48 bits.
+     */
     std::bitset<48> expand(const std::bitset<32>& halfBlock) {
         std::bitset<48> output;
         for (int i = 0; i < 48; i++) {
@@ -35,6 +57,11 @@ public:
         return output;
     }
 
+    /**
+    * @brief Sustituye un bloque de 48 bits utilizando la tabla SBOX.
+    * @param input Entrada de 48 bits.
+    * @return Salida de 32 bits después de sustitución.
+    */
     std::bitset<32> substitute(const std::bitset<48>& input) {
         std::bitset<32> output;
         for (int i = 0; i < 8; i++) {
@@ -49,6 +76,11 @@ public:
         return output;
     }
 
+    /**
+     * @brief Aplica la permutación P a un bloque de 32 bits.
+     * @param input Bloque de entrada de 32 bits.
+     * @return Bloque permutado de 32 bits.
+     */
     std::bitset<32> permutedP(const std::bitset<32>& input) {
         std::bitset<32> output;
         for (int i = 0; i < 32; i++) {
@@ -57,6 +89,12 @@ public:
         return output;
     }
 
+    /**
+     * @brief Función de Feistel aplicada a la mitad derecha del bloque.
+     * @param right Parte derecha del bloque.
+     * @param subkey Subclave para la ronda actual.
+     * @return Resultado de la función Feistel.
+     */
     std::bitset<32> feistel(const std::bitset<32>& right, const std::bitset<48>& subkey) {
         auto expanded = expand(right);
         auto xored = expanded ^ subkey;
@@ -65,6 +103,11 @@ public:
         return permuted;
     }
 
+    /**
+     * @brief Permutación final (simulada).
+     * @param input Entrada de 64 bits.
+     * @return Salida de 64 bits.
+     */
     std::bitset<64> fPermutation(const std::bitset<64>& input) {
         std::bitset<64> output;
         for (int i = 0; i < 64; i++) {
@@ -73,6 +116,11 @@ public:
         return output;
     }
 
+    /**
+     * @brief Cifra un bloque de 64 bits.
+     * @param plaintext Texto plano en formato bitset de 64 bits.
+     * @return Texto cifrado en formato bitset de 64 bits.
+     */
     std::bitset<64> encode(const std::bitset<64>& plaintext) {
         auto data = iPermutation(plaintext);
         std::bitset<32> left(data.to_ullong() >> 32);
@@ -86,6 +134,11 @@ public:
         return fPermutation(std::bitset<64>(combined));
     }
 
+    /**
+     * @brief Descifra un bloque de 64 bits.
+     * @param ciphertext Texto cifrado en formato bitset de 64 bits.
+     * @return Texto plano en formato bitset de 64 bits.
+     */
     std::bitset<64> decode(const std::bitset<64>& ciphertext) {
         auto data = iPermutation(ciphertext);
         std::bitset<32> left(data.to_ullong() >> 32);
@@ -99,6 +152,11 @@ public:
         return fPermutation(std::bitset<64>(combined));
     }
 
+    /**
+     * @brief Convierte una cadena de 8 caracteres a un bitset de 64 bits.
+     * @param block Bloque de texto de 8 caracteres.
+     * @return Bitset de 64 bits equivalente.
+     */
     std::bitset<64> stringToBitset64(const std::string& block) {
         uint64_t bits = 0;
         for (int i = 0; i < block.size(); i++) {
@@ -107,6 +165,11 @@ public:
         return std::bitset<64>(bits);
     }
 
+    /**
+     * @brief Convierte un bitset de 64 bits a una cadena de 8 caracteres.
+     * @param bits Bitset de 64 bits.
+     * @return Cadena de texto correspondiente.
+     */
     std::string bitset64ToString(const std::bitset<64>& bits) {
         std::string result(8, '\0');
         uint64_t val = bits.to_ullong();

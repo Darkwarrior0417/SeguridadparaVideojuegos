@@ -7,6 +7,15 @@
 
 using namespace std;
 
+/**
+ * @brief Punto de entrada del programa.
+ *
+ * Esta función realiza el cifrado y descifrado de una frase usando el algoritmo DES.
+ * Primero asegura que la frase tenga longitud múltiplo de 8, luego cifra cada bloque,
+ * imprime el resultado en hexadecimal y finalmente descifra para verificar que el proceso sea correcto.
+ *
+ * @return int Código de salida del programa (0 si todo fue exitoso).
+ */
 int
 main() {
     // std::bitset<64> plaintext("0001001000110100010101100111100010011010101111001101111011110001");
@@ -20,7 +29,7 @@ main() {
     }
 
     vector<bitset<64>> cipherBlocks;
-    cout << "Texto origunal" << phrase << endl;
+    cout << "Texto original" << phrase << endl;
     cout << "Cifrado en hexadecimal: " << endl;
 
     // Cifrado DES
