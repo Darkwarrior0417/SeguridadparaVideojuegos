@@ -5,10 +5,10 @@
  * @class DES
  * @brief Implementación simplificada del algoritmo de cifrado DES.
  */
-class 
-DES
-{
-public:
+    class 
+    DES
+    {   
+    public:
     DES() = default;
 
     /**
@@ -218,4 +218,59 @@ private:
         {4,1,14,8,13,6,2,11,15,12,9,7,3,10,5,0},
         {15,12,8,2,4,9,1,7,5,11,3,14,10,0,6,13}
     };
+    /*#include "CaesarEncryption.h"
+    #include "AsciiBinary.h"
+    #include "DES.h"
+    #include <string>
+    #include <iostream>
+    #include <iomanip>   // Para std::hex y std::setw
+
+    using namespace std;
+
+    /**
+     * @brief Punto de entrada del programa.
+     *
+     * Esta función realiza el cifrado y descifrado de una frase usando el algoritmo DES.
+     * Primero asegura que la frase tenga longitud múltiplo de 8, luego cifra cada bloque,
+     * imprime el resultado en hexadecimal y finalmente descifra para verificar que el proceso sea correcto.
+     *
+     * @return int Código de salida del programa (0 si todo fue exitoso).
+     */
+
+     /*int
+        main() {
+
+        std::bitset<64> key("0001001100110100010101110111100110011011101111001101111111110001");
+
+        string phrase = "$Dessmind_goat!";
+
+        // Asegurar que la frase tenga longitus múltiplo de 8
+        while (phrase.size() % 8 != 0) {
+            phrase += '\0'; // Espacio vacio
+        }
+
+        vector<bitset<64>> cipherBlocks;
+        cout << "Texto original" << phrase << endl;
+        cout << "Cifrado en hexadecimal: " << endl;
+
+        // Cifrado DES
+        DES des(key);
+        for (size_t i = 0; i < phrase.size(); i += 8) {
+            string block = phrase.substr(i, 8);
+            auto blockBits = des.stringToBitset64(block);
+            auto encrypted = des.encode(blockBits);
+            cipherBlocks.push_back(encrypted);
+            cout << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << encrypted.to_ullong() << " ";
+        }
+
+        // Descifrado DES
+        string output;
+        for (const auto& block : cipherBlocks) {
+            auto decrypted = des.decode(block);
+            output += des.bitset64ToString(decrypted);
+        }
+        cout << "\n""Texto descifrado: " << phrase << endl;
+
+        return 0;
+    }*/
 };

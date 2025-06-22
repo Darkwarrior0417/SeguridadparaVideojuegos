@@ -1,55 +1,22 @@
-#include "CaesarEncryption.h"
-#include "AsciiBinary.h"
-#include "DES.h"
-#include <string>
-#include <iostream>
-#include <iomanip>   // Para std::hex y std::setw
-
-using namespace std;
-
-/**
- * @brief Punto de entrada del programa.
- *
- * Esta función realiza el cifrado y descifrado de una frase usando el algoritmo DES.
- * Primero asegura que la frase tenga longitud múltiplo de 8, luego cifra cada bloque,
- * imprime el resultado en hexadecimal y finalmente descifra para verificar que el proceso sea correcto.
- *
- * @return int Código de salida del programa (0 si todo fue exitoso).
- */
+#include "Vignere.h"
 
 int
 main() {
+	std::string text = "Cristiano Ronaldo Marco Reus Fan Mewing";
+	std::string key = "ASDFGH";
 
-    std::bitset<64> key("0001001100110100010101110111100110011011101111001101111111110001");
+	std::cout << "Texto original: " << text << std::endl;
+	std::cout << "Clave: " << key << std::endl;
 
-    string phrase = "$Dessmind_goat!";
+	Vignere vignere(key);
+	std::string encrypted = vignere.encode(text);
+	std::cout << "Texto cifrado: " << encrypted << std::endl;
 
-    // Asegurar que la frase tenga longitus múltiplo de 8
-    while (phrase.size() % 8 != 0) {
-        phrase += '\0'; // Espacio vacio
-    }
+	//std::string decrypted = vignere.decode(encrypted);
+	//std::cout << "Texto descifrado: " << decrypted << std::endl;
 
-    vector<bitset<64>> cipherBlocks;
-    cout << "Texto original" << phrase << endl;
-    cout << "Cifrado en hexadecimal: " << endl;
+	std::string brute = vignere.breakBruteForce(encrypted);
+	std::cout << "Texto descifrado: " << brute << std::endl;
 
-    // Cifrado DES
-    DES des(key);
-    for (size_t i = 0; i < phrase.size(); i += 8) {
-        string block = phrase.substr(i, 8);
-        auto blockBits = des.stringToBitset64(block);
-        auto encrypted = des.encode(blockBits);
-        cipherBlocks.push_back(encrypted);
-        cout << std::hex << std::uppercase << std::setw(16) << std::setfill('0') << encrypted.to_ullong() << " ";
-    }
-
-    // Descifrado DES
-    string output;
-    for (const auto& block : cipherBlocks) {
-        auto decrypted = des.decode(block);
-        output += des.bitset64ToString(decrypted);
-    }
-    cout << "\n""Texto descifrado: " << phrase << endl;
-
-    return 0;
+	return 0;
 }
