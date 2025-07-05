@@ -1,22 +1,45 @@
-#include "Vignere.h"
+#include "CrytoGenerator.h"
 
 int
 main() {
-	std::string text = "Cristiano Ronaldo Marco Reus Fan Mewing";
-	std::string key = "ASDFGH";
+	// 1) Initialize the random number generator
+	CryptoGenerator cryptoGen;
+	cryptoGen.generatePassword(16); // Generate a password of length 16
 
-	std::cout << "Texto original: " << text << std::endl;
-	std::cout << "Clave: " << key << std::endl;
+	// 2) Genereate 16 generic random bytes
+	auto randomBytes = cryptoGen.generateBytes(17);
+	std::cout << "Random Bytes (hex): " << cryptoGen.toHex(randomBytes) << std::endl;
 
-	Vignere vignere(key);
-	std::string encrypted = vignere.encode(text);
-	std::cout << "Texto cifrado: " << encrypted << std::endl;
+	// 3) AES Key of 128 buts
+	auto key128 = cryptoGen.generateKey(128);
+	std::cout << "Key 128-bit (hex): " << cryptoGen.toHex(key128) << std::endl;
 
-	//std::string decrypted = vignere.decode(encrypted);
-	//std::cout << "Texto descifrado: " << decrypted << std::endl;
+	// 4) IV of 128 bits (16 bytes)
+	auto iv = cryptoGen.generateIV(16);
+	std::cout << "IV 128-bit (hex): " << cryptoGen.toHex(iv) << "\n";
 
-	std::string brute = vignere.breakBruteForce(encrypted);
-	std::cout << "Texto descifrado: " << brute << std::endl;
+	// 5) Salt of 16 bytes
+	auto salt = cryptoGen.generateSalt(8);
+	std::cout << "Salt (Base64): " << cryptoGen.toBase64(salt) << "\n";
+
+	// 6) Safe release
+	cryptoGen.secureWipe(iv);
+	cryptoGen.secureWipe(salt);
+
+	// 7) from Base64
+	std::string base64String = cryptoGen.toBase64(salt); // Example Base64 string
+	std::cout << "Base64: " << base64String << "\n";
+
+	auto fromBase64 = cryptoGen.fromBase64(base64String);
+	std::cout << "From Base64: " << cryptoGen.toHex(fromBase64) << "\n";
+
+	// 8) Estimated Entropy
+	auto entropy = cryptoGen.estimateEntropy(cryptoGen.generatePassword(16));
+	std::cout << "Password 1: " << cryptoGen.generatePassword(17) << "\n";
+	std::cout << "Estimated Entropy 1: " << entropy << "\n";
+	auto entropy2 = cryptoGen.estimateEntropy("Ker_Chak*M@Nkey&6");
+	std::cout << "Password 2: " << "Ker_Chak*M@Nkey&" << "\n";
+	std::cout << "Estimated Entropy 2: " << entropy2 << "\n";
 
 	return 0;
 }
