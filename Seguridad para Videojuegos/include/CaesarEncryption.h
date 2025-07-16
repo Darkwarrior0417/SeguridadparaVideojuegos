@@ -8,8 +8,7 @@
  * @class CaesarEncryption
  * @brief Implementación del cifrado César con funciones de cifrado, descifrado y análisis.
  */
-class 
-CaesarEncryption {
+class CaesarEncryption {
 public:
     CaesarEncryption() = default;
     ~CaesarEncryption() = default;
@@ -20,8 +19,7 @@ public:
    * @param desplazamiento Valor de desplazamiento en el alfabeto.
    * @return Texto cifrado.
    */
-    std::string 
-    EncryptionCaesar(const std::string& texto, int desplazamiento) {
+    std::string EncryptionCaesar(const std::string& texto, int desplazamiento) {
         std::string result = "";
 
         for (char c : texto) {
@@ -35,12 +33,11 @@ public:
                 result += (char)(((c - '0' + desplazamiento) % 10) + '0');
             }
             else {
-                result += c;
+                result += c;  // Para caracteres especiales y espacios
             }
         }
         return result;
     }
-
 
     /**
      * @brief Descifra un texto cifrado con el cifrado César.
@@ -48,17 +45,15 @@ public:
      * @param desplazamiento Valor de desplazamiento usado en el cifrado original.
      * @return Texto descifrado.
      */
-    std::string 
-    DecodeCaesar(const std::string& texto, int desplazamiento) {
-        return EncryptionCaesar(texto, 26 - (desplazamiento % 26));
+    std::string DecodeCaesar(const std::string& texto, int desplazamiento) {
+        return EncryptionCaesar(texto, 26 - (desplazamiento % 26));  // Deshace el cifrado aplicando el desplazamiento inverso
     }
 
     /**
      * @brief Realiza un ataque de fuerza bruta al cifrado César probando las 26 claves posibles.
      * @param texto Texto cifrado sobre el que se aplicará la fuerza bruta.
      */
-    void 
-    bruteForce(const std::string& texto) {
+    void bruteForce(const std::string& texto) {
         for (int i = 0; i < 26; i++) {
             std::string attempt = EncryptionCaesar(texto, 26 - i);
             std::cout << "Intento: " << i << ": " << attempt << std::endl;
@@ -70,8 +65,7 @@ public:
     * @param texto Texto cifrado que se desea analizar.
     * @return Valor de desplazamiento más probable.
     */
-    int 
-    evaluatePossibleKey(const std::string& texto) {
+    int evaluatePossibleKey(const std::string& texto) {
         int frecuencias[26] = { 0 };
 
         for (char c : texto) {
