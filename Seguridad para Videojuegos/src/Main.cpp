@@ -56,6 +56,10 @@ int main() {
      * @param key Clave para el cifrado/descifrado
      * @param encrypting Bandera para indicar cifrado (true) o descifrado (false)
      */
+
+     // Se modifica para que el archivo de salida se guarde en la carpeta "cif"
+    outputFile = "cif\\" + outputFile;  // Agrega la carpeta "cif" al nombre del archivo de salida
+
     switch (choice) {
     case 1:  ///< Cifrado César
         encryptor.processFile(inputFile, outputFile, key, FileEncryptor::CipherType::CAESAR, encrypting);
@@ -73,6 +77,8 @@ int main() {
         std::cerr << "Opción no válida." << std::endl;  ///< Mensaje de error si la opción no es válida
         return 1;
     }
+
+    std::cout << "Archivo procesado correctamente y guardado en: " << outputFile << std::endl; // Confirmación
 
     return 0;  ///< Finaliza el programa correctamente
 }
